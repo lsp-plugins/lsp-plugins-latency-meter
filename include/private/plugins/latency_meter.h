@@ -23,15 +23,56 @@
 #define PRIVATE_PLUGINS_LATENCY_METER_H_
 
 #include <lsp-plug.in/plug-fw/plug.h>
-
+#include <lsp-plug.in/dsp-units/ctl/Bypass.h>
+#include <lsp-plug.in/dsp-units/util/LatencyDetector.h>
 #include <private/meta/latency_meter.h>
 
 namespace lsp
 {
     namespace plugins
     {
+        /**
+         * Latency Meter Plugin Series
+         */
         class latency_meter: public plug::Module
         {
+            protected:
+                dspu::LatencyDetector   sLatencyDetector;
+                dspu::Bypass            sBypass;
+                bool                    bBypass;
+                bool                    bTrigger;
+                bool                    bFeedback;
+                float                   fInGain;
+                float                   fOutGain;
+
+                float                  *vBuffer;
+                uint8_t                *pData;
+
+                plug::IPort            *pIn;
+                plug::IPort            *pOut;
+                plug::IPort            *pBypass;
+                plug::IPort            *pMaxLatency;
+                plug::IPort            *pPeakThreshold;
+                plug::IPort            *pAbsThreshold;
+                plug::IPort            *pInputGain;
+                plug::IPort            *pFeedback;
+                plug::IPort            *pOutputGain;
+                plug::IPort            *pTrigger;
+                plug::IPort            *pLatencyScreen;
+                plug::IPort            *pLevel;
+
+            public:
+                explicit latency_meter(const meta::plugin_t *metadata);
+                virtual ~latency_meter();
+
+                virtual void        init(plug::IWrapper *wrapper);
+                virtual void        destroy();
+
+            public:
+                virtual void        process(size_t samples);
+                virtual void        update_settings();
+                virtual void        update_sample_rate(long sr);
+                virtual void        dump(dspu::IStateDumper *v) const;
         };
     } // namespace plugins
 } // namespace lsp
