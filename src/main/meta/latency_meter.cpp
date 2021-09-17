@@ -52,7 +52,7 @@ namespace lsp
             AMP_GAIN10("gout", "Output Gain", 1.0f),
             TRIGGER("ttrig", "Triger Latency Measurement"),
             METER("l_v", "Latency Value", U_MSEC, latency_meter_metadata::MTR_LATENCY),
-            METER_GAIN20("ilvl", "Input Level"),
+            METER_GAIN("ilvl", "Input Level", GAIN_AMP_P_24_DB),
 
             PORTS_END
         };
