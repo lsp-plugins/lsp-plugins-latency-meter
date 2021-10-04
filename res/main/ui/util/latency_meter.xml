@@ -1,53 +1,59 @@
 <plugin resizable="true">
-	<hbox spacing="4">
-		<group text="groups.gain">
-			<grid rows="3" cols="3" expand="true">
-				<label text="labels.input" />
-				<label text="labels.feedback" />
-				<label text="labels.output" />
+	<grid rows="2" cols="3" spacing="4">
+		<cell rows="2">
+			<group text="groups.gain" ipadding="0">
+				<grid rows="5" cols="1" expand="true">
+					<label text="labels.input" pad.h="6" pad.v="4"/>
+					<hbox fill="false" pad.h="6" pad.v="4">
+						<knob id="gin" pad.r="4"/>
+						<value id="gin" width.min="32"/>
+					</hbox>
+					<label text="labels.output" pad.h="6" pad.v="4"/>
+					<hbox fill="false" pad.h="6" pad.v="4">
+						<knob id="gout" pad.r="4"/>
+						<value id="gout" width.min="32"/>
+					</hbox>
+					<button id="fback" text="labels.feedback" height="22" width="68" ui:inject="Button_cyan" pad.h="6" pad.t="4" pad.b="8" hfill="true"/>
+				</grid>
+			</group>
+		</cell>
 
-				<knob id="gin" size="24" />
-				<button id="fback" size="32" />
-				<knob id="gout" size="24" />
+		<group text="groups.parameters" ipadding="0" expand="true">
+			<grid rows="3" cols="5" expand="true">
+				<label text="labels.max_latency" pad.h="6" pad.v="4"/>
+				<cell rows="3"><vsep bg.color="bg" pad.h="2" hreduce="true"/></cell>
+				<label text="labels.signal.peak" width.min="64" pad.h="6" pad.v="4"/>
+				<cell rows="3"><vsep bg.color="bg" pad.h="2" hreduce="true"/></cell>
+				<label text="labels.absolute_threshold" width.min="64" pad.h="6" pad.v="4"/>
 
-				<value id="gin" />
-				<led id="fback" led="true" color="green" />
-				<value id="gout" />
+					<knob id="mlat" pad.r="4" pad.h="6" pad.b="4"/>
+					<knob id="pthr" pad.r="4" pad.h="6" pad.b="4"/>
+					<knob id="athr" pad.r="4" pad.h="6" pad.b="4"/>
+
+					<value id="mlat" width.min="32" pad.h="6" pad.b="4"/>
+					<value id="pthr" width.min="32" pad.h="6" pad.b="4"/>
+					<value id="athr" width.min="32" pad.h="6" pad.b="4"/>
 			</grid>
 		</group>
-		
-		<group text="groups.parameters">
-			<grid rows="3" cols="3" expand="true">
-				<label text="labels.max_latency" />
-				<label text="labels.signal.peak"/>
-				<label text="labels.absolute_threshold"/>
-				
-				<knob id="mlat"/>
-				<knob id="pthr"/>
-				<knob id="athr"/>
-				
-				<value id="mlat"/>
-				<value id="pthr"/>
-				<value id="athr"/>
+
+		<group text="groups.latency" expand="true">
+			<grid rows="3" cols="1" bg.color="bg_schema">
+				<label text="labels.latency:ms"/>
+				<cell rows="2">
+					<vbox hfill="false">
+					<indicator hfill="false" id="l_v" format="f6.3!" text_color="green" />
+				<button hfill="true" text="labels.measure" id="ttrig"  ui:inject="Button_yellow"/>
+			</vbox>
+		</cell>
 			</grid>
 		</group>
-		
-		<group text="groups.latency">
-			<grid rows="3" cols="2" expand="true">
-				<label text="labels.latency:ms" />
-				<label text="labels.measure" />
-				<indicator id="l_v" format="f6.3!" text_color="green" />
-				<button id="ttrig" size="32" color="yellow" led="true" />
-				
-				<cell cols="2">
-					<ledmeter hexpand="true" angle="0" height.min="192">
-						<ledchannel id="ilvl" min="-72 db" max="12 db" log="true" type="rms_peak"
-							peak.visibility="true"
-							value.color="mono" />
+		<cell cols="2">
+					<hbox bg.color="bg_schema" pad.l="6">
+					<label text="labels.chan.in"/>
+					<ledmeter vexpand="true" angle="0" height.min="192" hexpand="true">
+						<ledchannel id="ilvl" min="-72 db" max="12 db" log="true" type="rms_peak" peak.visibility="true" value.color="mono"/>
 					</ledmeter>
-				</cell>
-			</grid>
-		</group>
-		
-	</hbox>
+				</hbox>
+			</cell>
+	</grid>
 </plugin>
