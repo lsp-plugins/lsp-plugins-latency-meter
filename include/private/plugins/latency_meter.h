@@ -65,7 +65,7 @@ namespace lsp
                 explicit latency_meter(const meta::plugin_t *metadata);
                 virtual ~latency_meter();
 
-                virtual void        init(plug::IWrapper *wrapper);
+                virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports);
                 virtual void        destroy();
 
             public:

@@ -84,9 +84,9 @@ namespace lsp
             vBuffer     = NULL;
         }
 
-        void latency_meter::init(plug::IWrapper *wrapper)
+        void latency_meter::init(plug::IWrapper *wrapper, plug::IPort **ports)
         {
-            plug::Module::init(wrapper);
+            plug::Module::init(wrapper, ports);
 
             size_t samples  = TMP_BUF_SIZE;
             pData           = new uint8_t[samples * sizeof(float) + DEFAULT_ALIGN];
@@ -98,18 +98,18 @@ namespace lsp
             lsp_assert(reinterpret_cast<uint8_t *>(ptr) <= &pData[samples * sizeof(float) + DEFAULT_ALIGN]);
 
             size_t port_id = 0;
-            pIn             = vPorts[port_id++];
-            pOut            = vPorts[port_id++];
-            pBypass         = vPorts[port_id++];
-            pMaxLatency     = vPorts[port_id++];
-            pPeakThreshold  = vPorts[port_id++];
-            pAbsThreshold   = vPorts[port_id++];
-            pInputGain      = vPorts[port_id++];
-            pFeedback       = vPorts[port_id++];
-            pOutputGain     = vPorts[port_id++];
-            pTrigger        = vPorts[port_id++];
-            pLatencyScreen  = vPorts[port_id++];
-            pLevel          = vPorts[port_id++];
+            pIn             = ports[port_id++];
+            pOut            = ports[port_id++];
+            pBypass         = ports[port_id++];
+            pMaxLatency     = ports[port_id++];
+            pPeakThreshold  = ports[port_id++];
+            pAbsThreshold   = ports[port_id++];
+            pInputGain      = ports[port_id++];
+            pFeedback       = ports[port_id++];
+            pOutputGain     = ports[port_id++];
+            pTrigger        = ports[port_id++];
+            pLatencyScreen  = ports[port_id++];
+            pLevel          = ports[port_id++];
 
             sLatencyDetector.init();
 
