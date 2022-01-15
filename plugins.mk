@@ -18,13 +18,6 @@
 # along with lsp-plugins-latency-meter.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-# Package version
-ARTIFACT_ID                 = LSP_PLUGINS_LATENCY_METER
-ARTIFACT_NAME               = lsp-plugins-latency-meter
-ARTIFACT_TYPE               = plug
-ARTIFACT_DESC               = LSP Latency Meter Plugin Series
-ARTIFACT_HEADERS            = lsp-plug.in
-ARTIFACT_VERSION            = 1.0.1-devel
-
-
-
+# Variables that describe dependencies
+PLUGIN_DEPENDENCIES     = LSP_PLUGINS_LATENCY_METER
+PLUGIN_PACKAGE_NAME     = lsp-plugins
