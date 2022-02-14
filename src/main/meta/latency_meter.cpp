@@ -40,6 +40,15 @@ namespace lsp
     {
         static const int latency_meter_classes[] = { C_ANALYSER, -1};
 
+        const meta::bundle_t latency_meter_bundle =
+        {
+            "latency_meter",
+            "Latency Meter",
+            B_UTILITIES,
+            "JFXTcJb4DLs",
+            "A simple plugin that allows to measure the latency of a transmission line\nby using chirp - inverse filter convolution. Latency is determined as the\nlag of the convolution peak."
+        };
+
         static const port_t latency_meter_ports[] =
         {
             PORTS_MONO_PLUGIN,
@@ -75,7 +84,8 @@ namespace lsp
             latency_meter_ports,
             "util/latency_meter.xml",
             NULL,
-            mono_plugin_port_groups
+            mono_plugin_port_groups,
+            &latency_meter_bundle
         };
     } // namespace meta
 } // namespace lsp
