@@ -46,7 +46,7 @@ namespace lsp
             "Latency Meter",
             B_UTILITIES,
             "JFXTcJb4DLs",
-            "A simple plugin that allows to measure the latency of a transmission line\nby using chirp - inverse filter convolution. Latency is determined as the\nlag of the convolution peak."
+            "A simple plugin that allows one to measure the latency of a transmission line\nby using chirp - inverse filter convolution. Latency is determined as the\nlag of the convolution peak."
         };
 
         static const port_t latency_meter_ports[] =
