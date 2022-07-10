@@ -32,25 +32,25 @@ namespace lsp
     {
         struct latency_meter_metadata
         {
-            static const float LATENCY_MIN          = 0.0f;       /* Min detectable latency [ms] */
-            static const float LATENCY_MAX          = 2000.0f;    /* Max detectable latency [ms] */
-            static const float LATENCY_DFL          = 1000.0f;
-            static const float LATENCY_STEP         = 1.0f;
+            static constexpr float LATENCY_MIN          = 0.0f;       /* Min detectable latency [ms] */
+            static constexpr float LATENCY_MAX          = 2000.0f;    /* Max detectable latency [ms] */
+            static constexpr float LATENCY_DFL          = 1000.0f;
+            static constexpr float LATENCY_STEP         = 1.0f;
 
-            static const float MTR_LATENCY_MIN      = 0.0f;       /* Min detectable latency [ms] */
-            static const float MTR_LATENCY_MAX      = 2000.0f;    /* Max detectable latency [ms] */
-            static const float MTR_LATENCY_DFL      = 0.0f;
-            static const float MTR_LATENCY_STEP     = 1.0f;
+            static constexpr float MTR_LATENCY_MIN      = 0.0f;       /* Min detectable latency [ms] */
+            static constexpr float MTR_LATENCY_MAX      = 2000.0f;    /* Max detectable latency [ms] */
+            static constexpr float MTR_LATENCY_DFL      = 0.0f;
+            static constexpr float MTR_LATENCY_STEP     = 1.0f;
 
-            static const float PEAK_THRESHOLD_MIN   = GAIN_AMP_M_84_DB;
-            static const float PEAK_THRESHOLD_MAX   = GAIN_AMP_0_DB;
-            static const float PEAK_THRESHOLD_DFL   = GAIN_AMP_M_24_DB;
-            static const float PEAK_THRESHOLD_STEP  = 0.01f;
+            static constexpr float PEAK_THRESHOLD_MIN   = GAIN_AMP_M_84_DB;
+            static constexpr float PEAK_THRESHOLD_MAX   = GAIN_AMP_0_DB;
+            static constexpr float PEAK_THRESHOLD_DFL   = GAIN_AMP_M_24_DB;
+            static constexpr float PEAK_THRESHOLD_STEP  = 0.01f;
 
-            static const float ABS_THRESHOLD_MIN    = GAIN_AMP_M_84_DB;
-            static const float ABS_THRESHOLD_MAX    = GAIN_AMP_0_DB;
-            static const float ABS_THRESHOLD_DFL    = GAIN_AMP_M_24_DB;
-            static const float ABS_THRESHOLD_STEP   = 0.01f;
+            static constexpr float ABS_THRESHOLD_MIN    = GAIN_AMP_M_84_DB;
+            static constexpr float ABS_THRESHOLD_MAX    = GAIN_AMP_0_DB;
+            static constexpr float ABS_THRESHOLD_DFL    = GAIN_AMP_M_24_DB;
+            static constexpr float ABS_THRESHOLD_STEP   = 0.01f;
         };
 
         extern const meta::plugin_t latency_meter;
