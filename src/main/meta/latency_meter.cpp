@@ -38,7 +38,8 @@ namespace lsp
 {
     namespace meta
     {
-        static const int latency_meter_classes[] = { C_ANALYSER, -1};
+        static const int plugin_classes[]       = { C_ANALYSER, -1};
+        static const int clap_features[]        = { CF_ANALYZER, CF_UTILITY, CF_MONO, -1 };
 
         const meta::bundle_t latency_meter_bundle =
         {
@@ -78,8 +79,10 @@ namespace lsp
             "abee",
             LSP_LADSPA_LATENCY_METER_BASE + 0,
             LSP_LADSPA_URI("latency_meter"),
+            LSP_CLAP_URI("latency_meter"),
             LSP_PLUGINS_LATENCY_METER_VERSION,
-            latency_meter_classes,
+            plugin_classes,
+            clap_features,
             E_DUMP_STATE,
             latency_meter_ports,
             "util/latency_meter.xml",
