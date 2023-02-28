@@ -21,6 +21,7 @@
 
 #include <private/plugins/latency_meter.h>
 #include <lsp-plug.in/common/alloc.h>
+#include <lsp-plug.in/common/debug.h>
 #include <lsp-plug.in/dsp/dsp.h>
 
 #define TMP_BUF_SIZE        1024
