@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2021 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2021 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-latency-meter
  * Created on: 3 авг. 2021 г.
@@ -24,13 +24,18 @@
 #include <lsp-plug.in/common/debug.h>
 #include <lsp-plug.in/dsp/dsp.h>
 
-#define TMP_BUF_SIZE        1024
-#define TRACE_PORT(p)       lsp_trace("  port id=%s", (p)->metadata()->id);
+#define TMP_BUF_SIZE        1024U
 
 namespace lsp
 {
     namespace plugins
     {
+        static plug::IPort *TRACE_PORT(plug::IPort *p)
+        {
+            lsp_trace("  port id=%s", (p)->metadata()->id);
+            return p;
+        }
+
         //---------------------------------------------------------------------
         // Plugin factory
         static const meta::plugin_t *plugins[] =
@@ -73,9 +78,16 @@ namespace lsp
 
         latency_meter::~latency_meter()
         {
+            do_destroy();
         }
 
         void latency_meter::destroy()
+        {
+            plug::Module::destroy();
+            do_destroy();
+        }
+
+        void latency_meter::do_destroy()
         {
             if (pData != NULL)
             {
@@ -99,18 +111,18 @@ namespace lsp
             lsp_assert(reinterpret_cast<uint8_t *>(ptr) <= &pData[samples * sizeof(float) + DEFAULT_ALIGN]);
 
             size_t port_id = 0;
-            pIn             = ports[port_id++];
-            pOut            = ports[port_id++];
-            pBypass         = ports[port_id++];
-            pMaxLatency     = ports[port_id++];
-            pPeakThreshold  = ports[port_id++];
-            pAbsThreshold   = ports[port_id++];
-            pInputGain      = ports[port_id++];
-            pFeedback       = ports[port_id++];
-            pOutputGain     = ports[port_id++];
-            pTrigger        = ports[port_id++];
-            pLatencyScreen  = ports[port_id++];
-            pLevel          = ports[port_id++];
+            pIn             = TRACE_PORT(ports[port_id++]);
+            pOut            = TRACE_PORT(ports[port_id++]);
+            pBypass         = TRACE_PORT(ports[port_id++]);
+            pMaxLatency     = TRACE_PORT(ports[port_id++]);
+            pPeakThreshold  = TRACE_PORT(ports[port_id++]);
+            pAbsThreshold   = TRACE_PORT(ports[port_id++]);
+            pInputGain      = TRACE_PORT(ports[port_id++]);
+            pFeedback       = TRACE_PORT(ports[port_id++]);
+            pOutputGain     = TRACE_PORT(ports[port_id++]);
+            pTrigger        = TRACE_PORT(ports[port_id++]);
+            pLatencyScreen  = TRACE_PORT(ports[port_id++]);
+            pLevel          = TRACE_PORT(ports[port_id++]);
 
             sLatencyDetector.init();
 
@@ -141,7 +153,7 @@ namespace lsp
 
             while (samples > 0)
             {
-                size_t to_do = (samples > TMP_BUF_SIZE) ? TMP_BUF_SIZE : samples;
+                size_t to_do        = lsp_min(samples, TMP_BUF_SIZE);
 
                 dsp::mul_k3(vBuffer, in, fInGain, to_do);
 
@@ -153,9 +165,9 @@ namespace lsp
                 dsp::mul_k2(vBuffer, fOutGain, to_do);
                 sBypass.process(out, in, vBuffer, to_do);
 
-                in         += to_do;
-                out        += to_do;
-                samples    -= to_do;
+                in                 += to_do;
+                out                += to_do;
+                samples            -= to_do;
             }
 
             if (sLatencyDetector.latency_detected())
@@ -176,7 +188,7 @@ namespace lsp
                 pLatencyScreen->set_value(0.0f); // Showing 0 if no latency was detected. Can we have something like ----.--- instead?
             }
 
-            sLatencyDetector.set_ip_detection(pMaxLatency->value() / 1000.0f);
+            sLatencyDetector.set_ip_detection(pMaxLatency->value() * 0.001f);
             sLatencyDetector.set_peak_threshold(pPeakThreshold->value());
             sLatencyDetector.set_abs_threshold(pAbsThreshold->value());
             fInGain     = pInputGain->value();
@@ -215,7 +227,7 @@ namespace lsp
             v->write("pLatencyScreen", pLatencyScreen);
             v->write("pLevel", pLevel);
         }
-    } // namespace plugins
-} // namespace lsp
+    } /* namespace plugins */
+} /* namespace lsp */
 
 
