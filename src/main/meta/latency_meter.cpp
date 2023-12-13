@@ -71,6 +71,7 @@ namespace lsp
         {
             "Latenzmessgerät",
             "Latency Meter",
+            "Latency Meter",
             "LM1M",
             &developers::s_tronci,
             "latency_meter",
