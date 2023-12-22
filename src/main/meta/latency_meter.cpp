@@ -25,7 +25,7 @@
 
 #define LSP_PLUGINS_LATENCY_METER_VERSION_MAJOR       1
 #define LSP_PLUGINS_LATENCY_METER_VERSION_MINOR       0
-#define LSP_PLUGINS_LATENCY_METER_VERSION_MICRO       15
+#define LSP_PLUGINS_LATENCY_METER_VERSION_MICRO       16
 
 #define LSP_PLUGINS_LATENCY_METER_VERSION  \
     LSP_MODULE_VERSION( \
@@ -70,6 +70,7 @@ namespace lsp
         const meta::plugin_t latency_meter =
         {
             "Latenzmessgerät",
+            "Latency Meter",
             "Latency Meter",
             "LM1M",
             &developers::s_tronci,
