@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2021 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2021 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-latency-meter
  * Created on: 3 авг. 2021 г.
@@ -78,6 +78,8 @@ namespace lsp
             LSP_LV2_URI("latency_meter"),
             LSP_LV2UI_URI("latency_meter"),
             "abee",
+            LSP_VST3_UID("lm1m    abee"),
+            LSP_VST3UI_UID("lm1m    abee"),
             LSP_LADSPA_LATENCY_METER_BASE + 0,
             LSP_LADSPA_URI("latency_meter"),
             LSP_CLAP_URI("latency_meter"),
