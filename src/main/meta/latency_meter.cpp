@@ -25,7 +25,7 @@
 
 #define LSP_PLUGINS_LATENCY_METER_VERSION_MAJOR       1
 #define LSP_PLUGINS_LATENCY_METER_VERSION_MINOR       0
-#define LSP_PLUGINS_LATENCY_METER_VERSION_MICRO       19
+#define LSP_PLUGINS_LATENCY_METER_VERSION_MICRO       20
 
 #define LSP_PLUGINS_LATENCY_METER_VERSION  \
     LSP_MODULE_VERSION( \
@@ -75,14 +75,17 @@ namespace lsp
             "LM1M",
             &developers::s_tronci,
             "latency_meter",
-            LSP_LV2_URI("latency_meter"),
-            LSP_LV2UI_URI("latency_meter"),
-            "abee",
-            LSP_VST3_UID("lm1m    abee"),
-            LSP_VST3UI_UID("lm1m    abee"),
-            LSP_LADSPA_LATENCY_METER_BASE + 0,
-            LSP_LADSPA_URI("latency_meter"),
-            LSP_CLAP_URI("latency_meter"),
+            {
+                LSP_LV2_URI("latency_meter"),
+                LSP_LV2UI_URI("latency_meter"),
+                "abee",
+                LSP_VST3_UID("lm1m    abee"),
+                LSP_VST3UI_UID("lm1m    abee"),
+                LSP_LADSPA_LATENCY_METER_BASE + 0,
+                LSP_LADSPA_URI("latency_meter"),
+                LSP_CLAP_URI("latency_meter"),
+                LSP_GST_UID("latency_meter"),
+            },
             LSP_PLUGINS_LATENCY_METER_VERSION,
             plugin_classes,
             clap_features,
