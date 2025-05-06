@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2025 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2025 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-latency-meter
  * Created on: 3 авг. 2021 г.
@@ -58,9 +58,9 @@ namespace lsp
             CONTROL("pthr", "Peak Threshold", U_GAIN_AMP, latency_meter_metadata::PEAK_THRESHOLD),
             CONTROL("athr", "Absolute Threshold", U_GAIN_AMP, latency_meter_metadata::ABS_THRESHOLD),
             AMP_GAIN10("gin", "Input Gain", 1.0f),
-            SWITCH("fback", "Feedback", 0.0f),
+            SWITCH("fback", "Feedback", "Feedback", 0.0f),
             AMP_GAIN10("gout", "Output Gain", 1.0f),
-            TRIGGER("ttrig", "Triger Latency Measurement"),
+            TRIGGER("ttrig", "Triger Latency Measurement", "Measure start"),
             METER("l_v", "Latency Value", U_MSEC, latency_meter_metadata::MTR_LATENCY),
             METER_GAIN("ilvl", "Input Level", GAIN_AMP_P_24_DB),
 
