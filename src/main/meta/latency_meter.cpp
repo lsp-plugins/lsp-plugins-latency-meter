@@ -54,9 +54,9 @@ namespace lsp
         {
             PORTS_MONO_PLUGIN,
             BYPASS,
-            CONTROL("mlat", "Maximum Expected Latency", U_MSEC, latency_meter_metadata::LATENCY),
-            CONTROL("pthr", "Peak Threshold", U_GAIN_AMP, latency_meter_metadata::PEAK_THRESHOLD),
-            CONTROL("athr", "Absolute Threshold", U_GAIN_AMP, latency_meter_metadata::ABS_THRESHOLD),
+            CONTROL("mlat", "Maximum Expected Latency", "Max latency", U_MSEC, latency_meter_metadata::LATENCY),
+            CONTROL("pthr", "Peak Threshold", "Peak thresh", U_GAIN_AMP, latency_meter_metadata::PEAK_THRESHOLD),
+            CONTROL("athr", "Absolute Threshold", "Abs thresh", U_GAIN_AMP, latency_meter_metadata::ABS_THRESHOLD),
             AMP_GAIN10("gin", "Input Gain", 1.0f),
             SWITCH("fback", "Feedback", "Feedback", 0.0f),
             AMP_GAIN10("gout", "Output Gain", 1.0f),
