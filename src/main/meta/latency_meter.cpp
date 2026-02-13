@@ -92,7 +92,7 @@ namespace lsp
             clap_features,
             E_DUMP_STATE,
             latency_meter_ports,
-            "util/latency_meter.xml",
+            "plugins/util/latency_meter.xml",
             NULL,
             mono_plugin_port_groups,
             &latency_meter_bundle
