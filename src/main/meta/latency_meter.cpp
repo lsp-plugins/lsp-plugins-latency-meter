@@ -95,7 +95,8 @@ namespace lsp
             "plugins/util/latency_meter.xml",
             NULL,
             mono_plugin_port_groups,
-            &latency_meter_bundle
+            &latency_meter_bundle,
+            1
         };
         LSP_REGISTER_METADATA(latency_meter);
 
