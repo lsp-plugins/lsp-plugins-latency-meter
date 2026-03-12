@@ -1,7 +1,10 @@
 {
 	"latency_meter": {
-		"name": "Latenzmessung",
-		"description": "Ein einfaches Plugin zur Messung der Latenz einer Übertragung\n unter Nutzung von Chirp - invertierte Filterkonvolution. Die Latenz wird durch \ndie Verzögerung des Konvolutionspeaks ermittelt."
+		"description": "Ein einfaches Plugin zur Messung der Latenz einer Übertragung\n unter Nutzung von Chirp - invertierte Filterkonvolution. Die Latenz wird durch \ndie Verzögerung des Konvolutionspeaks ermittelt.",
+		"name": "Latenzmessung"
+	},
+	"launcher": {
+		"latency_meter": "Meter"
 	}
 }
 
