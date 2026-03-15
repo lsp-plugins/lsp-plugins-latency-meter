@@ -3,7 +3,7 @@
 *******************************************************************************
 
 === 1.0.31 ===
-
+* Added measured latency display in samples.
 
 === 1.0.30 ===
 * Updated build scripts and dependencies.

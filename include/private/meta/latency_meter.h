@@ -42,6 +42,11 @@ namespace lsp
             static constexpr float MTR_LATENCY_DFL      = 0.0f;
             static constexpr float MTR_LATENCY_STEP     = 1.0f;
 
+            static constexpr float MTR_SAMPLES_MIN      = 0.0f;       /* Min detectable latency [ms] */
+            static constexpr float MTR_SAMPLES_MAX      = MAX_SAMPLE_RATE * MTR_LATENCY_MAX;    /* Max detectable latency [ms] */
+            static constexpr float MTR_SAMPLES_DFL      = 0.0f;
+            static constexpr float MTR_SAMPLES_STEP     = 1.0f;
+
             static constexpr float PEAK_THRESHOLD_MIN   = GAIN_AMP_M_84_DB;
             static constexpr float PEAK_THRESHOLD_MAX   = GAIN_AMP_0_DB;
             static constexpr float PEAK_THRESHOLD_DFL   = GAIN_AMP_M_24_DB;

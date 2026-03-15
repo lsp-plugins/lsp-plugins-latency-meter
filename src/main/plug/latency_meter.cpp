@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2026 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2026 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-latency-meter
  * Created on: 3 авг. 2021 г.
@@ -24,17 +24,13 @@
 #include <lsp-plug.in/common/debug.h>
 #include <lsp-plug.in/dsp/dsp.h>
 
-#define TMP_BUF_SIZE        1024U
+#include <lsp-plug.in/shared/debug.h>
 
 namespace lsp
 {
     namespace plugins
     {
-        static plug::IPort *TRACE_PORT(plug::IPort *p)
-        {
-            lsp_trace("  port id=%s", (p)->metadata()->id);
-            return p;
-        }
+        static constexpr size_t BUFFER_SIZE     = 0x400;
 
         //---------------------------------------------------------------------
         // Plugin factory
@@ -71,7 +67,8 @@ namespace lsp
             pInputGain      = NULL;
             pOutputGain     = NULL;
             pTrigger        = NULL;
-            pLatencyScreen  = NULL;
+            pLatencyMillis  = NULL;
+            pLatencySamples = NULL;
             pLevel          = NULL;
             pFeedback       = NULL;
         }
@@ -101,28 +98,29 @@ namespace lsp
         {
             plug::Module::init(wrapper, ports);
 
-            size_t samples  = TMP_BUF_SIZE;
+            size_t samples  = BUFFER_SIZE;
             pData           = new uint8_t[samples * sizeof(float) + DEFAULT_ALIGN];
 
             uint8_t *ptr    = align_ptr(pData, DEFAULT_ALIGN);
             vBuffer         = reinterpret_cast<float *>(ptr);
-            ptr            += TMP_BUF_SIZE * sizeof(float);
+            ptr            += BUFFER_SIZE * sizeof(float);
 
             lsp_assert(reinterpret_cast<uint8_t *>(ptr) <= &pData[samples * sizeof(float) + DEFAULT_ALIGN]);
 
             size_t port_id = 0;
-            pIn             = TRACE_PORT(ports[port_id++]);
-            pOut            = TRACE_PORT(ports[port_id++]);
-            pBypass         = TRACE_PORT(ports[port_id++]);
-            pMaxLatency     = TRACE_PORT(ports[port_id++]);
-            pPeakThreshold  = TRACE_PORT(ports[port_id++]);
-            pAbsThreshold   = TRACE_PORT(ports[port_id++]);
-            pInputGain      = TRACE_PORT(ports[port_id++]);
-            pFeedback       = TRACE_PORT(ports[port_id++]);
-            pOutputGain     = TRACE_PORT(ports[port_id++]);
-            pTrigger        = TRACE_PORT(ports[port_id++]);
-            pLatencyScreen  = TRACE_PORT(ports[port_id++]);
-            pLevel          = TRACE_PORT(ports[port_id++]);
+            BIND_PORT(pIn);
+            BIND_PORT(pOut);
+            BIND_PORT(pBypass);
+            BIND_PORT(pMaxLatency);
+            BIND_PORT(pPeakThreshold);
+            BIND_PORT(pAbsThreshold);
+            BIND_PORT(pInputGain);
+            BIND_PORT(pFeedback);
+            BIND_PORT(pOutputGain);
+            BIND_PORT(pTrigger);
+            BIND_PORT(pLatencyMillis);
+            BIND_PORT(pLatencySamples);
+            BIND_PORT(pLevel);
 
             sLatencyDetector.init();
 
@@ -140,7 +138,7 @@ namespace lsp
 
         void latency_meter::process(size_t samples)
         {
-            float *in = pIn->buffer<float>();
+            const float *in = pIn->buffer<float>();
             if (in == NULL)
                 return;
 
@@ -153,7 +151,7 @@ namespace lsp
 
             while (samples > 0)
             {
-                size_t to_do        = lsp_min(samples, TMP_BUF_SIZE);
+                const size_t to_do  = lsp_min(samples, BUFFER_SIZE);
 
                 dsp::mul_k3(vBuffer, in, fInGain, to_do);
 
@@ -171,7 +169,10 @@ namespace lsp
             }
 
             if (sLatencyDetector.latency_detected())
-                pLatencyScreen->set_value(sLatencyDetector.get_latency_seconds() * 1000.0f); // * 1000.0f to show ms instead of s
+            {
+                pLatencyMillis->set_value(sLatencyDetector.get_latency_seconds() * 1000.0f); // * 1000.0f to show ms instead of s
+                pLatencySamples->set_value(sLatencyDetector.get_latency_samples());
+            }
         }
 
         void latency_meter::update_settings()
@@ -185,7 +186,7 @@ namespace lsp
             if (bTrigger)
             {
                 sLatencyDetector.start_capture();
-                pLatencyScreen->set_value(0.0f); // Showing 0 if no latency was detected. Can we have something like ----.--- instead?
+                pLatencyMillis->set_value(0.0f); // Showing 0 if no latency was detected. Can we have something like ----.--- instead?
             }
 
             sLatencyDetector.set_ip_detection(pMaxLatency->value() * 0.001f);
@@ -224,7 +225,8 @@ namespace lsp
             v->write("pFeedback", pFeedback);
             v->write("pOutputGain", pOutputGain);
             v->write("pTrigger", pTrigger);
-            v->write("pLatencyScreen", pLatencyScreen);
+            v->write("pLatencyMillis", pLatencyMillis);
+            v->write("pLatencySamples", pLatencySamples);
             v->write("pLevel", pLevel);
         }
     } /* namespace plugins */

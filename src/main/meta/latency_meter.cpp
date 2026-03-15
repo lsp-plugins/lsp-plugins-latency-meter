@@ -39,6 +39,10 @@ namespace lsp
 {
     namespace meta
     {
+        // Lisf of different revisions for adding controls
+        #define REV_0       0
+        #define REV_1       1
+
         static const int plugin_classes[]       = { C_ANALYSER, -1};
         static const int clap_features[]        = { CF_ANALYZER, CF_UTILITY, CF_MONO, -1 };
 
@@ -63,6 +67,7 @@ namespace lsp
             AMP_GAIN10("gout", "Output Gain", "Output gain", 1.0f),
             TRIGGER("ttrig", "Triger Latency Measurement", "Measure start"),
             METER("l_v", "Latency Value", U_MSEC, latency_meter_metadata::MTR_LATENCY),
+            ADDON_METER(REV_1, "l_s", "Latency Samples", U_SAMPLES, latency_meter_metadata::MTR_SAMPLES),
             METER_GAIN("ilvl", "Input Level", GAIN_AMP_P_24_DB),
 
             PORTS_END
