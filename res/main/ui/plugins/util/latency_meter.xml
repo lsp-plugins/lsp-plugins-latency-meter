@@ -37,17 +37,23 @@
 		</group>
 
 		<group text="groups.latency" expand="true">
-			<grid rows="4" cols="2" bg.color="bg_schema">
-				<cell cols="2">
+			<grid rows="4" cols="4" bg.color="bg_schema">
+				<cell cols="4">
 					<label text="labels.latency"/>
 				</cell>
-				<indicator hfill="false" id="l_v" format="f7.3!" text_color="green" />
-				<label text="labels.units.ms" />
-				<indicator hfill="false" id="l_s" format="i7." text_color="green" />
-				<label text="labels.units.samples" />
-				<cell cols="2">
-					<button hfill="true" text="labels.measure" id="ttrig"  ui:inject="Button_yellow"/>
-				</cell>
+				<void expand="true"/>
+				<label text="labels.time_:ms" hfill="true" htext="1"/>
+				<indicator hfill="false" id="l_v" format="f7.3!" text_color="green" pad.l="6"/>
+				<void expand="true"/>
+
+				<void expand="true"/>
+				<label text="labels.units.samples" hfill="true" htext="1"/>
+				<indicator hfill="false" id="l_s" format="i7." text_color="green" pad.l="6"/>
+				<void expand="true"/>
+
+				<void expand="true"/>
+				<cell cols="2"><button hfill="true" text="labels.measure" id="ttrig" ui:inject="Button_yellow"/></cell>
+				<void expand="true"/>
 			</grid>
 		</group>
 		<cell cols="2">
