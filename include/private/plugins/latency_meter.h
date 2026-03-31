@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2026 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2026 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-latency-meter
  * Created on: 3 авг. 2021 г.
@@ -58,7 +58,8 @@ namespace lsp
                 plug::IPort            *pFeedback;
                 plug::IPort            *pOutputGain;
                 plug::IPort            *pTrigger;
-                plug::IPort            *pLatencyScreen;
+                plug::IPort            *pLatencyMillis;
+                plug::IPort            *pLatencySamples;
                 plug::IPort            *pLevel;
 
             protected:
@@ -66,7 +67,12 @@ namespace lsp
 
             public:
                 explicit latency_meter(const meta::plugin_t *metadata);
+                latency_meter(const latency_meter &) = delete;
+                latency_meter(latency_meter &&) = delete;
                 virtual ~latency_meter() override;
+
+                latency_meter & operator = (const latency_meter &) = delete;
+                latency_meter & operator = (latency_meter &&) = delete;
 
                 virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports) override;
                 virtual void        destroy() override;
